@@ -252,6 +252,66 @@ FROM (
 ) AS categorized_content
 GROUP BY category;
 ```
+### 16. Get Titles Where the Description Mentions ‘Love’ but Not ‘Hate’
+```sql
+select 
+    title,
+    descriptions
+from netflix
+where descriptions ilike '%love%'
+  and descriptions not ilike '%hate%';
+```
+  
+### 17. Find the Average Release Year per Country (Only Countries with 20+ Titles)
+```sql
+select 
+    country,
+    ROUND(avg(release_year), 2) as avg_release_year,
+    count(*) as total_titles
+from netflix
+where country is not null
+group by country
+having count(*) > 20
+order by avg_release_year desc;
+```
+### 18. Categorize Each Title as “Old” or “Modern”
+```sql
+select 
+    title,
+    release_year,
+    case 
+        when release_year < 2000 then 'Old'
+        when release_year between 2000 and 2015 then 'Modern'
+        else 'Recent'
+    end as category
+from netflix;
+```
+
+### 19.Show distinct countries available in dataset
+```sql
+select distinct country
+from netflix
+where country is not null
+order by country;
+```
+
+### 20. Find All Titles That Belong to the “Horror” Genre. 
+```sql
+select title, listed_in
+from netflix
+where  listed_in ilike '%horror%';
+```
+
+### 21.Find the Year with the Highest Number of Titles Released
+```sql
+select
+    release_year,
+    count(*) as total_titles
+from netflix
+group by release_year
+order by total_titles desc
+limit 1;
+```
 
 **Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
