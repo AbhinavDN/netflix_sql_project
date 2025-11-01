@@ -1,1 +1,1 @@
-# netflix Tvshows and Movies data analysis using sql
+# Netflix Tvshows And Movies Data Analysis using SQL
